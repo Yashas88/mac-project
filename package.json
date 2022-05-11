@@ -1,0 +1,22 @@
+{
+  "name": "mac-project",
+  "version": "1.0.0",
+  "description": "E-Commerce Website [MERN stack]",
+  "main": "server.js",
+  "scripts": {
+    "test": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yashas88/mac-project.git"
+  },
+  "author": "Yashas D B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yashas88/mac-project/issues"
+  },
+  "homepage": "https://github.com/Yashas88/mac-project#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
