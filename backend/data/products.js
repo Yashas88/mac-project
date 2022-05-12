@@ -1,6 +1,5 @@
 const products = [
     {
-        _id : '1',
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
@@ -13,7 +12,6 @@ const products = [
     },
 
     {
-        _id : '2',
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
@@ -26,7 +24,6 @@ const products = [
     },
 
     {
-        _id : '3',
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
@@ -38,7 +35,6 @@ const products = [
         numReviews : 9
     },
     {
-        _id : '4',
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
@@ -50,7 +46,6 @@ const products = [
         numReviews : 5
     },
     {
-        _id : '5',
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
@@ -62,7 +57,6 @@ const products = [
         numReviews : 6
     },
     {
-        _id : '6',
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
