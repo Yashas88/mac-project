@@ -1,5 +1,6 @@
 const products = [
     {
+        // _id : 1,
         name : 'Women Black Ethnic Motifs Printed Kurta with Palazzos & With Dupatta',
         image : '/images/kurts2.webp',
         description : 
