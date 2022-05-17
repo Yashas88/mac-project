@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
 
     passward: {
         type : String,
-        // required : true
+        required : true
     },
 
     isAdmin: {
