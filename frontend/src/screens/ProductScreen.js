@@ -20,7 +20,7 @@ import Message from "../components/Message";
 // import axios from 'axios'
 
 const ProductScreen = ({ history ,match }) => {
-  const [qty, setQty] = useState(0)
+  const [qty, setQty] = useState(1)
 
   const dispatch = useDispatch();
 
@@ -32,12 +32,12 @@ const ProductScreen = ({ history ,match }) => {
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
-     history.push(`/cart/${match.params.id} ?qty = ${qty}`)
+     history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
 
   return (
     <>
-      <Link className="btn btn-dark my-3" to="/">
+      <Link to="/" className="btn btn-dark my-3" >
         Go Back
       </Link>
       {loading ? (
@@ -89,21 +89,23 @@ const ProductScreen = ({ history ,match }) => {
                   </Row>
                 </ListGroup.Item>
 
-                {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                       <Row>
-                         <Col>Qty</Col>
-                         <Col>
-                         <Form.Control as = 'select' value = {qty} onChange = {(e) => setQty(e.target.value)}>
-                              {[...Array(product.countInStock).keys()].map((x) => (
-                                <option key = {x+1} value = {x+1}>{x+1}</option>
-                              ))}
-                         </Form.Control>
-                         </Col>
-                       </Row>
-
-                    </ListGroup.Item>  
-                )}
+                {
+                      product.countInStock > 0 && (
+                        <ListGroup.Item>
+                          <Row>
+                            <Col style={{fontSize :'3rem' }}>Qty</Col>
+                            <Col>
+                              <Form.Control as='select' style={{fontSize :'1.5rem' }} value={qty} onChange={(e)=> setQty(e.target.value)}>
+                            { [...Array(product.countInStock).keys()].map((x) =>(
+                                <option key={x+1} value={x+1} >{x+1}</option>
+                              ))
+                            }
+                              </Form.Control>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item> 
+                      )
+                    }
 
                 <ListGroup.Item>
                   <Button 
