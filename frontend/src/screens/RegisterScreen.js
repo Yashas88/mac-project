@@ -86,14 +86,14 @@ const RegisterScreen = ({location , history}) => {
 
                 <br></br>
 
-                <Button  type='submit' variant='primary'> Register</Button>
+                <Button  type='submit' variant='primary'> Register </Button>
 
 
             </Form>
 
             <Row className='py-3' >
                 <Col>
-              Already have an Account ? <Link to={ redirect ? `/login?redirect=${redirect}` : `/login` } >Login</Link>
+              Already have an Account ? <Link to={ redirect ? `/login?redirect=${redirect}` : `/login` }> Login </Link>
                 </Col>
             </Row>
             

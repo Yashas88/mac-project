@@ -19,19 +19,22 @@ const LoginScreen = ({location , history}) => {
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
-
-     //if user alredy loged in
     useEffect(()=> {
         if(userInfo) {
             history.push(redirect)
         }
     },[history , userInfo , redirect])
 
+
+
     const submitHandler = (e) => {
         e.preventDefault()
+        //Dispatch Login
 
         dispatch(login(email, password))
+    
     }
+
 
     return (
         <FormContainer>

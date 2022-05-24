@@ -7,8 +7,8 @@ import Message from "../components/Message";
 import { FaTimes,FaCheck } from "react-icons/fa";
 import {FcViewDetails} from "react-icons/fc";
 
-import { getUserDetails, updateUserProfile } from "../actions/userActions";
-// import { profile, UpdateProfile } from "../actions/userActions";
+
+import { profile, UpdateProfile } from "../actions/userActions";
 
 // import { listMyOrders } from "../actions/orderActions";
 
@@ -21,26 +21,22 @@ const ProfileScreen = ({ location, history }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
 
-  const userProfile = useSelector((state) => state.userProfile);
+  const userProfile = useSelector((state) => state.userDetails);
   const { loading, error, user } = userProfile;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success } = userUpdateProfile;
+  const updateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = updateProfile;
 
-  const myOrders = useSelector((state) => state.myOrders);
-  const { loading: loadingOrders, error: errorOrders, orders } = myOrders;
-  console.log(orders);
-
+ 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
       if (!user.name) {
-        // dispatch(profile("profile"));
-        // dispatch(listMyOrders());
+        dispatch(profile("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -54,7 +50,7 @@ const ProfileScreen = ({ location, history }) => {
       setMessage("Password do not match");
     }
     //dispatch update profile
-    dispatch(updateUserProfile({ id: user._id, name, email, password }));
+    dispatch(UpdateProfile({ id: user._id, name, email, password }));
   };
   return (
     <Row>
@@ -125,91 +121,9 @@ const ProfileScreen = ({ location, history }) => {
         <br></br>
       </Col>
 
-      <Col md={9}>
-        <h2>My Orders</h2>
-        {loadingOrders ? (
-          <Loader />
-        ) : errorOrders ? (
-          <Message variant="danger">{errorOrders}</Message>
-        ) : (
-          <Table id='table' striped bordered hover responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>ORDERED DATE </th>
-                {/* <th>ID</th> */}
-                <th>ITEMS</th>
-                <th>IMAGE</th>
-                <th>TOTAL </th>
-                <th>PAID </th>
-                <th>DELIVERED</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  
-                  <td style={{width: '6rem'}}>{order.createdAt.substring(0,10)}</td>
-
-                  <td style={{width: '13rem'}}>
-                    {order.orderItems.map((item, index) => (
-                      <ListGroup.Item  key={index}>
-                        <p style={{height: '3rem' }} >{item.name} : </p>
-                      </ListGroup.Item>
-                     
-                    ))}
-                  </td>
-
-                  <td style={{width: '6rem'}}>
-                    {order.orderItems.map((item, index) => (
-                      <ListGroup.Item  key={index}>
-                        <Image style={{height: '4rem'}} src={item.image}  fluid rounded></Image>
-                      </ListGroup.Item>
-                     
-                    ))}
-                  </td>
-
-                 
-                  
-                  
-
-                  <td style={{width: '6rem'}}>{order.totalPrice}</td>
-
-                  <td style={{width: '6rem'}}>
-                    {order.isPaid ? (
-                       (<FaCheck size='2rem' style={{color : 'green'}}/>) 
-                    ) : (
-                        <FaTimes size="2rem" style={{ color: "red" }} /> 
-                    )}
-                  </td>
-
-                  <td style={{width: '1rem'}} >
-                    {order.isDelivered ? (
-                     (<FaCheck size='2rem' style={{color : 'green'}}/>) 
-                    ) : (
-                      <FaTimes size="2rem" style={{ color: "red" }} />
-                    )}
-                  </td>
-
-                  <td style={{width: '3rem'}} >
-                   
-                      <a
-                        style={{ textDecoration: "none" }}
-                        href={`/order/${order._id}`}
-                        variant="light"
-                      >
-                        <  FcViewDetails size='2rem' />
-                      </a>
-                    
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
+     
     </Row>
   );
 };
 
-export default ProfileScreen;
+export default ProfileScreen

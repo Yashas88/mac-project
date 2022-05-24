@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
 import { logout } from '../actions/userActions';
 
@@ -17,20 +18,20 @@ const Header = () => {
     <header>
        <Navbar bg="dark" variant = "dark" collapseOnSelect expand = "lg">
   <Container>
-    <Navbar.Brand href="/">Fashion World</Navbar.Brand>
+    <Navbar.Brand as = {Link} to = "/">Fashion World</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        <Nav.Link href="/cart"><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
+        <Nav.Link as = {Link} to="/cart"><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
 
         {userInfo ?(
            <NavDropdown title = {userInfo.name} id = 'username'>
-                <Nav.Link to = '/profile'>
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                <Nav.Link as = {Link} to = '/profile'>
+                  <NavDropdown.Item >Profile</NavDropdown.Item>
                 </Nav.Link>
                 <NavDropdown.Item onClick = {logoutHandler}>LogOut</NavDropdown.Item>
            </NavDropdown>  
-        ): <Nav.Link href="/login"><i className='fas fa-user'></i>Login</Nav.Link> }
+        ): <Nav.Link as = {Link}  to="/login"><i className='fas fa-user'></i>Login</Nav.Link> }
       
       </Nav>
     </Navbar.Collapse>

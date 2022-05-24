@@ -1,4 +1,3 @@
-import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateToken.js'
 
@@ -8,7 +7,7 @@ import generateToken from '../utils/generateToken.js'
 //route: POST/api/users/login
 // Public access
 
-const authUser = asyncHandler(async (req, res) => {
+const authUser = async (req, res) => {
     const {email, password} =  req.body
     const user = await User.findOne({email : email})
     if(user && (await user.matchPassword(password))) {
@@ -23,14 +22,14 @@ const authUser = asyncHandler(async (req, res) => {
         res.status(401)
         throw new Error('invalid email or password' )
     }
-})
+}
 
 // get user profile
 //route: GET/api/users/profile
 // Private access
 
 
-const getUserProfile = asyncHandler(async (req, res) => {
+const getUserProfile = async (req, res) => {
       const user = await User.findById(req.user._id)
 
       if(user) {
@@ -44,12 +43,12 @@ const getUserProfile = asyncHandler(async (req, res) => {
           res.status(404)
           throw new Error('User not found')
       }
-})
+}
 
 
 //register new user, POST/api/users, public access
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = async (req, res) => {
     const {name , email, password} =  req.body
 
     const userExists = await User.findOne({email})
@@ -77,7 +76,7 @@ const registerUser = asyncHandler(async (req, res) => {
       res.status(400)
       throw new Error('User not found')
   }
-})
+}
 
 
 
@@ -86,7 +85,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // Private access
 
 
-const updateUserProfile = asyncHandler(async (req, res) => {
+const updateUserProfile = async (req, res) => {
     const user = await User.findById(req.user._id)
 
     if(user) {
@@ -111,5 +110,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         res.status(404)
         throw new Error('User not found')
     }
-})
+}
+
 export {authUser ,registerUser,  getUserProfile, updateUserProfile}

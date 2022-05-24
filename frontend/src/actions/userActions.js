@@ -128,7 +128,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
 //update user
 
-export const updateUserDetails = (id) => async (dispatch, getState) => {
+export const UpdateProfile = (user) => async (dispatch, getState) => {
 
     try {
         dispatch({
@@ -144,7 +144,7 @@ export const updateUserDetails = (id) => async (dispatch, getState) => {
             }
         }
 
-        const {data} = await axios.put(`api/users/profile`,user, config)
+        const {data} = await axios.put(`api/users/profile`, user, config)
 
         dispatch({ 
             type : USER_UPDATE_PROFILE_SUCCESS,
@@ -159,6 +159,40 @@ export const updateUserDetails = (id) => async (dispatch, getState) => {
                error.response && error.response.data.message
                ? error.response.data.message 
                : error.message,
+        })
+    }
+}
+
+//update profile
+export const profile = (id ) => async (dispatch , getState)  => {
+    try {
+        
+        dispatch({
+            type: USER_DETAILS_REQUEST
+        })
+
+        const {userLogin : {userInfo}} = getState()
+        const config = {
+            headers : {
+                'content-type' : 'application/json', 
+                Authorization : `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(`/api/users/${id}`, config)
+        dispatch({
+            type : USER_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_DETAILS_FAIL,
+            payload : error.response && error.response.data.message 
+            ? 
+            error.response.data.message
+            :
+            error.message
         })
     }
 }
