@@ -1,12 +1,16 @@
-import React , {useState}from 'react'
+import React , {useState, useEffect}from 'react'
 import {Button, Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {useDispatch , useSelector} from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
+import { createOrder } from '../actions/orderActions'
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({history}) => {
     const cart = useSelector(state => state.cart)
+
+  const dispatch = useDispatch();
+
 
     
  
@@ -23,8 +27,33 @@ const PlaceOrderScreen = () => {
   cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
 
+  const orderCreate = useSelector((state) => state.orderCreate)
+
+  // console.log(orderCreate)
+  const {order , success , error } = orderCreate
+
+
+  useEffect(()=>{
+    if(success){
+      history.push(`/order/${order._id}`)
+    }
+    // eslint-disable-next-line 
+  }, [history, success])
+  
   const placeOrderHandler = () => {
-      console.log('order')
+
+    dispatch(createOrder({
+        orderItems : cart.cartItems, 
+        shippingAddress : cart.shippingAddress,
+        paymentMethod : cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice : cart.shippingPrice,
+        taxPrice : cart.taxPrice,
+        totalPrice : cart.totalPrice
+  
+      }))
+  
+      console.log("placeorder")
   }
 
 
@@ -126,12 +155,12 @@ const PlaceOrderScreen = () => {
                         </Row>
                         
                     </ListGroup.Item>
-                    {/* <ListGroup.Item>
+                     <ListGroup.Item>
                       {
                         error && <Message variant='danger'>{error}</Message>
                       }
 
-                    </ListGroup.Item> */}
+                    </ListGroup.Item>
 
                     <ListGroup.Item>
                     <Button type="button" className ='btn-block'
