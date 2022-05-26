@@ -7,13 +7,11 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
 
 const PlaceOrderScreen = ({history}) => {
+    const dispatch = useDispatch();
+    
     const cart = useSelector(state => state.cart)
 
-  const dispatch = useDispatch();
-
-
     
- 
 // calculate price
     cart.itemsPrice = cart.cartItems.reduce((acc, item)=> acc + item.price * item.qty , 0) 
 
@@ -37,7 +35,7 @@ const PlaceOrderScreen = ({history}) => {
     if(success){
       history.push(`/order/${order._id}`)
     }
-    // eslint-disable-next-line 
+     // eslint-disable-next-line 
   }, [history, success])
   
   const placeOrderHandler = () => {
