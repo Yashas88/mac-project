@@ -25,7 +25,7 @@ const OrderScreen = ({match, history}) => {
     const  userLogin  = useSelector((state) => state.userLogin )
     const {userInfo} =  userLogin
 
-    console.log(order)
+    console.log(orderDetails)
 
     useEffect(()=>{
         
@@ -33,11 +33,13 @@ const OrderScreen = ({match, history}) => {
             history.push('/login')
         }
         dispatch(getOrderDetails(orderId))
-      }, [dispatch, orderId, order, userInfo, history])
+      }, [])
       
+   function continueShopping() {
+       history.push('/')
+   }
 
-
-  return 
+  return (
   loading ? <Loader/> : error ? <Message variant="danger" >{error} </Message> :
   <>
        <h1>Order </h1>
@@ -45,7 +47,7 @@ const OrderScreen = ({match, history}) => {
        <Row>
        <Col  md={8}>
            <ListGroup.Item>
-                  <h2>Oder Items</h2>
+                  <h2>Order Items</h2>
                   {
                       order.orderItems.length === 0 ? <Message>Your order is empty</Message>
                       : (
@@ -82,10 +84,7 @@ const OrderScreen = ({match, history}) => {
             </ListGroup.Item>
 
              <ListGroup.Item>
-                <h2>Shipping </h2>
-                <p> Name : {order.shippingAddress.name} ,</p>
-                <p>  Phone : {order.shippingAddress.phone}</p>
-                
+               
                   <strong>
                     Address: {order.shippingAddress.address},
                     {order.shippingAddress.city}
@@ -93,9 +92,7 @@ const OrderScreen = ({match, history}) => {
                     {""},{order.shippingAddress.country}{" "}
                   </strong>
              
-                  {order.isDelivered ? 
-                  <Message variant='success' >Delivered On {order.deliveredAt.substring(0,10)} </Message> :
-                   <Message variant='danger' >Not Delivered </Message>}
+                 
               </ListGroup.Item>
 
               <ListGroup.Item>
@@ -103,17 +100,66 @@ const OrderScreen = ({match, history}) => {
                <p>
                <strong>Method : {order.paymentMethod}</strong>
                </p>
-               {order.isPaid ? <Message variant='success' >Paid On {order.paidAt.substring(0,10)} </Message> : <Message variant='danger' >Not Paid </Message>}
               </ListGroup.Item>
 
              
             </ListGroup>
           </Col>
+
+          <Col ma={4}>
+            <Card>
+                <ListGroup variant="flush" >
+                    <ListGroup.Item>
+                        <h2>Order Summary</h2>
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>
+                        {/* <Row>
+                            <Col>Items:</Col>
+                            <Col>₹{order.itemsQty}</Col>
+                        </Row>
+                         */}
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Shipping:</Col>
+                            <Col>₹{order.shippingPrice}</Col>
+                        </Row>
+                        
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Tax:</Col>
+                            <Col>₹{order.taxPrice}</Col>
+                        </Row>
+                        
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Total:</Col>
+                            <Col>₹{order.totalPrice}</Col>
+                        </Row>
+                        
+                    </ListGroup.Item>
+               
+
+                </ListGroup>
+               
+            </Card>
+
+            <ListGroup.Item>
+                <Button type="button" className ='btn-block' onClick={continueShopping}> Continue Shopping </Button>
+                    </ListGroup.Item>
+          </Col>
        </Row>
 
   </>
 
-   
+  
+  ) 
 }
 
 export default OrderScreen

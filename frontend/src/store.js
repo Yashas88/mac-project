@@ -4,7 +4,7 @@ import { productListReducer , productDetailsReducer} from './reducers/productRed
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { cartReducer } from './reducers/cartReducers'
 import { userLoginReducer , userRegisterReducer, userDetailsReducer, userUpdateProfileReducer} from './reducers/userReducers'
-import { orderCreateReducer } from './reducers/orderReducer'
+import { orderCreateReducer, orderDetailsReducer } from './reducers/orderReducer'
 
 const reducer = combineReducers({
       productList : productListReducer,
@@ -15,6 +15,7 @@ const reducer = combineReducers({
       userDetails : userDetailsReducer,
       userUpdateProfile : userUpdateProfileReducer,
       orderCreate : orderCreateReducer,
+      orderDetails : orderDetailsReducer,
 })
 
 
@@ -24,16 +25,19 @@ const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localS
 
 const shippingAddressFromStorage= localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {}
 
+const paymentMethodFromStorage = localStorage.getItem('paymentMethod') ? JSON.parse(localStorage.getItem('paymentMethod')) : 'PayPal'
+
 
 
 const initialState = {
       cart : {cartItems : cartItemsFromStorage,
-            shippingAddress : shippingAddressFromStorage},
+            shippingAddress : shippingAddressFromStorage,
+            paymentMethod   : paymentMethodFromStorage,
+      },
       userLogin : {userInfo : userInfoFromStorage},
 }
 const middleware = [thunk]
 
-const store = createStore(reducer, initialState, composeWithDevTools
-      (applyMiddleware(...middleware)))
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
  export default store
