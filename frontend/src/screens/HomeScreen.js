@@ -9,7 +9,6 @@ import Paginate from "../components/Paginate";
 
 
 const HomeScreen = ({match}) => {
-  // const [products, setProducts] = useState([])
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
   const dispatch = useDispatch()
@@ -29,13 +28,12 @@ const HomeScreen = ({match}) => {
             <Row>
             {products.map(product => (
                 <Col key = {product._id} sm = {12} md = {6} xl = {3}>
-                     <Product product = {product}/>
+                       <Product product = {product}/>
                 </Col>
             ))}
         </Row>
-        <div className='paginate' >
             <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''}/>
-        </div> 
+        
         </>
         }     
     </>

@@ -2,7 +2,7 @@ import Product from '../models/productModel.js'
 
 
 // @description  Fetch all products
-// @route GET/api/produccts
+// @route GET/api/products
 //@access to public
 const getProducts = async (req, res) => {
   const pageSize = 4
@@ -17,6 +17,7 @@ const getProducts = async (req, res) => {
   
   const count = await Product.countDocuments({...keyword})
   const products = await Product.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
+  
   res.json({products, page , pages: Math.ceil(count/pageSize)})
 }
 
