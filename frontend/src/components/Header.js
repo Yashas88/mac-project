@@ -1,7 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
+import Searchbox from './Searchfile';
 import { logout } from '../actions/userActions';
 
 
@@ -19,8 +20,21 @@ const Header = () => {
        <Navbar bg="dark" variant = "dark" collapseOnSelect expand = "lg">
   <Container>
     <Navbar.Brand as = {Link} to = "/">Fashion World</Navbar.Brand>
+
+
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
+
+    {/* <Route render={(history) => <Searchbox history={history} />} />
+            <Nav
+              className='mr-auto my-2 my-lg-0'
+              style={{ maxHeight: '100px' }}
+              navbarScroll
+            >
+              <Nav.Link href='#action1' disabled></Nav.Link>
+              <Nav.Link href='#action2' disabled></Nav.Link>
+              <Nav.Link href='#' disabled></Nav.Link>
+            </Nav> */}
       <Nav className="ml-auto">
         <Nav.Link as = {Link} to="/cart"><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
 

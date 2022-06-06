@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "node backend/server",
-    "server": "nodemon backend/server",
+  "description": "E-Commerce Website [MERN stack]",
+  "server": "nodemon backend/server --ignore client",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",

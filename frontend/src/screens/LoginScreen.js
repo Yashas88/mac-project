@@ -44,7 +44,7 @@ const LoginScreen = ({location , history}) => {
             <br></br>
             <Form onSubmit={submitHandler} >
 
-                <Form.Group controlId='email' >
+                <Form.Group controlId='email'>
                     <Form.Label> Email Address </Form.Label>
                     <Form.Control type='email' placeholder='Enter Your Email' 
                     value ={email} 
