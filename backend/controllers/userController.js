@@ -8,19 +8,23 @@ import generateToken from '../utils/generateToken.js'
 // Public access
 
 const authUser = async (req, res) => {
+
+    
+    
     const {email, password} =  req.body
     const user = await User.findOne({email : email})
     if(user && (await user.matchPassword(password))) {
       res.json({
+        message:"User Logged Successfully",
           _id: user.id,
           name: user.name,
           email : user.email ,
           isAdmin : user.isAdmin,
           token : generateToken(user._id)
+          
       })
     }else{
-        res.status(401)
-        throw new Error('invalid email or password' )
+       return res.status(401).json({message:'invalid email or password'})
     }
 }
 
@@ -30,7 +34,9 @@ const authUser = async (req, res) => {
 
 
 const getUserProfile = async (req, res) => {
-      const user = await User.findById(req.user._id)
+
+    try {
+        const user = await User.findById(req.user._id)
 
       if(user) {
           res.json({ 
@@ -43,39 +49,39 @@ const getUserProfile = async (req, res) => {
           res.status(404)
           throw new Error('User not found')
       }
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+
+      
 }
 
 
 //register new user, POST/api/users, public access
 
 const registerUser = async (req, res) => {
-    const {name , email, password} =  req.body
+    try {
+        const {name , email, password} =  req.body
 
-    const userExists = await User.findOne({email})
-   
-  if(userExists){
-      res.status(400)
-      throw new Error('User Already Exists')
-  }
-
-  const user = await User.create({
-      name ,
-      email,
-       password
-  })
-
-  if(user){
-      res.status(201).json({
-          _id : user._id, 
-          name : user.name, 
-          email : user.email,
-          isAdmin : user.isAdmin,
-          token : generateToken(user._id)
+        const userExists = await User.findOne({email})
+       
+      if(userExists){
+         return res.status(400).json({message:'User Already Exists'})
+      }
+    
+      const user = await User.create({
+          name ,
+          email,
+        password
       })
-  }else{
-      res.status(400)
-      throw new Error('User not found')
-  }
+    
+    
+        res.status(201).json({ message:"User Register Successfully", _id : user._id,  name : user.name,  email : user.email, isAdmin : user.isAdmin, token : generateToken(user._id) })
+    
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+  
 }
 
 

@@ -24,11 +24,15 @@ const ProductScreen = ({ history ,match }) => {
 
   const dispatch = useDispatch();
 
+
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, product, error } = productDetails;
 
   useEffect(() => {
+   
     dispatch(listProductDetails(match.params.id));
+   
+
   }, [dispatch, match]);
 
   const addToCartHandler = () => {

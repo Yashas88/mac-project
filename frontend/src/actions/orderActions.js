@@ -6,7 +6,7 @@ import { ORDER_CREATE_REQUEST
      ORDER_DETAILS_SUCCESS,
      ORDER_DETAILS_FAIL,
 } from '../constants/orderConstants'
-
+import {URL} from '../config/axios'
      export const createOrder = (order) => async (dispatch, getState) => {
 
         try {
@@ -23,7 +23,7 @@ import { ORDER_CREATE_REQUEST
                 }
             }
             console.log("order",order)
-            const {data} = await axios.post("/api/orders" ,order, config)
+            const {data} = await axios.post(`${URL.apiBaseUrl}/api/orders` ,order, config)
             console.log("data", data)
             dispatch({ 
                 type : ORDER_CREATE_SUCCESS,
@@ -58,7 +58,7 @@ import { ORDER_CREATE_REQUEST
                 }
             }
             
-            const {data} = await axios.get(`/api/orders/${id}`, config)
+            const {data} = await axios.get(`${URL.apiBaseUrl}/api/orders/${id}`, config)
     
             dispatch({
                 type: ORDER_DETAILS_SUCCESS,

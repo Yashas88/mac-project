@@ -7,7 +7,7 @@ import Searchbox from './SearchBox';
 import { logout } from '../actions/userActions';
 import '../CSS/searchbox.css';
 
-
+import { profile } from "../actions/userActions";
 const Header = () => {
   const dispatch = useDispatch();
 
@@ -17,6 +17,8 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(logout());
   };
+
+  
   return (
     <header>
       <Navbar
